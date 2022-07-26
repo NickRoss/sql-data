@@ -1,0 +1,8 @@
+{
+    "s2010": "drop table if exists stocks.s2010;",
+    "s2011": "drop table if exists stocks.s2011;",
+    "fnd": "drop table if exists stocks.fnd;",
+    "cars": "drop table if exists cls.cars;",
+    "mta": "drop table if exists cls.mta;",
+    "null_test": "drop table if exists cls.null_test;"
+}

@@ -1,0 +1,7 @@
+{ "s2011" : "create table stocks.s2011 ( symb varchar(6) , retdate date , opn float , high float , low  float , cls float , vol int , exch varchar(8));"
+, "s2010" : "create table stocks.s2010 ( symb varchar(6) , retdate date , opn float , high float , low  float , cls float , vol int , exch varchar(8));"
+, "fnd" : "create table stocks.fnd ( gvkey varchar(8) , datadate date , fyear int , indfmr varchar(4) , consol varchar(1) , popsrc varchar(1) , datafmt varchar(3) , tic varchar(8) , cusip varchar(11) , conm varchar(30) , fyr int , cash float , dp float , ebitda float , emp float , invt float , netinc float , ppent float , rev float , ui float , cik varchar(10) );"
+, "cars" : "create table cls.cars ( year int , countyname varchar(20) , motorvehicle varchar(3) , vehiclecat varchar(15) , vehicletype varchar(55) , tonnage  varchar(30) , registrations int , annualfee float , completecategory varchar(90));"
+, "mta" : "create table cls.mta ( plaza int , mtadt date , hr int , direction varchar(1) , vehiclesEZ int , vehiclesCASH int);"
+ , "null_test" : "create table cls.null_test ( val int, cond varchar(1));"
+}

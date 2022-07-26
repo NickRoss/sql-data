@@ -1,0 +1,6 @@
+{"s2010" : {"schema" : "stocks", "tablename" : "s2010", "file" :  "raw_data/s2010.tdf"}
+, "s2011" : {"schema" : "stocks", "tablename" : "s2011", "file" :  "raw_data/s2011.tdf"}
+, "fnd" : {"schema" : "stocks", "tablename" : "fnd", "file" : "raw_data/stocks/fnd.tdf"}
+, "cars" : {"schema" : "cls", "tablename" : "cars", "file" : "raw_data/iowa_cars.tdf"} 
+, "mta" :  {"schema" : "cls", "tablename" : "mta", "file" : "raw_data/mta/MTA_Hourly.tdf"}
+, "null_test" : {"schema" : "cls", "tablename" : "null_test", "file" : "raw_data/in_class/null_test.tdf"}}
