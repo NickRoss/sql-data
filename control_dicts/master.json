@@ -3,4 +3,12 @@
 , "fnd" : {"schema" : "stocks", "tablename" : "fnd", "file" : "raw_data/stocks/fnd.tdf"}
 , "cars" : {"schema" : "cls", "tablename" : "cars", "file" : "raw_data/iowa_cars.tdf"} 
 , "mta" :  {"schema" : "cls", "tablename" : "mta", "file" : "raw_data/mta/MTA_Hourly.tdf"}
-, "null_test" : {"schema" : "cls", "tablename" : "null_test", "file" : "raw_data/in_class/null_test.tdf"}}
+, "null_test" : {"schema" : "cls", "tablename" : "null_test", "file" : "raw_data/in_class/null_test.tdf"}
+, "billpaid" : {"schema" : "cls", "tablename" : "billpaid", "file" : "raw_data/in_class/billpaid.tdf"}
+, "class1" : {"schema" : "cls", "tablename" : "class1", "file" : "raw_data/in_class/class1.tdf"}
+, "class2" : {"schema" : "cls", "tablename" : "class2", "file" : "raw_data/in_class/class2.tdf"}
+, "class3" : {"schema" : "cls", "tablename" : "class3", "file" : "raw_data/in_class/class3.tdf"}
+, "class4" : {"schema" : "cls", "tablename" : "class4", "file" : "raw_data/in_class/class4.tdf"}
+, "house_wide" : {"schema" : "cls", "tablename" : "house_wide", "file" : "raw_data/in_class/house_wide.tdf"}
+, "house_long" : {"schema" : "cls", "tablename" : "house_long", "file" : "raw_data/in_class/house_long.tdf"}
+}

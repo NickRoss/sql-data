@@ -3,5 +3,12 @@
 , "fnd" : "create table stocks.fnd ( gvkey varchar(8) , datadate date , fyear int , indfmr varchar(4) , consol varchar(1) , popsrc varchar(1) , datafmt varchar(3) , tic varchar(8) , cusip varchar(11) , conm varchar(30) , fyr int , cash float , dp float , ebitda float , emp float , invt float , netinc float , ppent float , rev float , ui float , cik varchar(10) );"
 , "cars" : "create table cls.cars ( year int , countyname varchar(20) , motorvehicle varchar(3) , vehiclecat varchar(15) , vehicletype varchar(55) , tonnage  varchar(30) , registrations int , annualfee float , completecategory varchar(90));"
 , "mta" : "create table cls.mta ( plaza int , mtadt date , hr int , direction varchar(1) , vehiclesEZ int , vehiclesCASH int);"
- , "null_test" : "create table cls.null_test ( val int, cond varchar(1));"
+, "null_test" : "create table cls.null_test ( val int, cond varchar(1));"
+, "billpaid" : "create table cls.billpaid (personid int, month int, paid int, paytype varchar(10), amt int);"
+, "class1" : "create table cls.class1 (sname varchar(8), grade varchar(1));"
+, "class2" : "create table cls.class2 (sname varchar(8), grade varchar(1));"
+, "class3" : "create table cls.class3 (sname varchar(8), grade varchar(1));"
+, "class4" : "create table cls.class4 (sname varchar(8), grade varchar(1));"
+, "house_wide" : "create table cls.house_wide (owner_name varchar(8), NoBedroomHouse1 int, NoBedroomHouse2 int, CostHouse1 int, CostHouse2 int);"
+, "house_long" : "create table cls.house_long (owner_name varchar(8), HouseNo int, BedRoom int, Cost int);"
 }

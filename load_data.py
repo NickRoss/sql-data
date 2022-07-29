@@ -112,6 +112,8 @@ if __name__ == '__main__':
     drop_table_dict = json.load( open('control_dicts/drop_table.json', 'r'))
     master_control_dict = json.load( open('control_dicts/master.json', 'r'))
 
+    ## To do: use master control to build drop table dict.
+
     print("Control Dicts Loaded.")
 
     master_process_list = list( master_control_dict.keys() )

@@ -4,5 +4,12 @@
     "fnd": "drop table if exists stocks.fnd;",
     "cars": "drop table if exists cls.cars;",
     "mta": "drop table if exists cls.mta;",
-    "null_test": "drop table if exists cls.null_test;"
+    "null_test": "drop table if exists cls.null_test;",
+    "billpaid" : "drop table if exists cls.billpaid;",
+    "class1" :  "drop table if exists cls.class1",
+    "class2" :  "drop table if exists cls.class2",
+    "class3" :  "drop table if exists cls.class3",
+    "class4" :  "drop table if exists cls.class4",
+    "house_wide" : "drop table if exists cls.house_wide;",
+    "house_long" : "drop table if exists cls.house_long;" 
 }
