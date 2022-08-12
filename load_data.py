@@ -7,11 +7,157 @@ import pandas as pd
 import os
 import json
 import sys
+import numpy as np
+from datetime import date,timedelta
+from random import random,randrange,seed
+from scipy.stats import skewnorm,expon
+from tqdm import tqdm
+from dateutil.relativedelta import relativedelta
 
 holiday_list = ['27-May-2002' , '04-Jul-2002' , '02-Sep-2002' , '28-Nov-2002' , '25-Dec-2002', '01-Jan-2003'
 , '20-Jan-2003', '17-Feb-2003', '18-Apr-2003', '26-May-2003', '04-Jul-2003', '01-Sep-2003', '27-Nov-2003', '25-Dec-2003'
 ,'01-Jan-2010', '18-Jan-2010', '15-Feb-2010', '02-Apr-2010', '31-May-2010', '05-Jul-2010', '06-Sep-2010', '25-Nov-2010', '24-Dec-2010'
 , '17-Jan-2011' ,'21-Feb-2011', '22-Apr-2011', '30-May-2011', '04-Jul-2011', '05-Sep-2011', '24-Nov-2011', '26-Dec-2011']
+
+def exp_dist(x,lam):
+    exp_dist = expon.pdf(x,1,lam)
+    exp_dist = exp_dist/exp_dist.sum()
+    return exp_dist
+
+def dist(num):
+    r = skewnorm.pdf(a=4,x= range(1,11),loc=num,scale = 2)
+    rem = 1- sum(r)
+    r[1] += rem
+    return r
+
+def generate_soap_data( output_file_name, random_seed = 1 ):
+
+    # Necessary variables
+    Coupons = [0, 10, 25, 35]
+    LocaleList = ['U.S.', 'Canada', 'Mexico']    
+    months = [ None,1,2]
+    transaction = ['Single bar', 'Double bar']
+    nrows = 1100000
+
+    # Date range between 2017 and 2018 
+    x = list(range(1,11))
+    start = date(2016,1,1)
+    end = date(2018,12,31)
+    seed( random_seed )
+    finalData = []
+
+    units_no_sub = dist(2)
+    units_with_sub = dist(1)
+
+    delta     = end - start
+    deltadays = delta.days
+    finalData = []
+    trytq = True
+    print("\n Building Trans Data")
+    if trytq : pbar = tqdm(total = nrows+1)
+    userid = 1
+    x = list(range(1,11))
+    i=0
+
+    while(i<nrows):
+
+        rand_draw = random()        
+
+    # Coupon and months
+        if rand_draw<=0.65:
+            Coupon = Coupons[0]
+            months = None
+            mntstr = ''
+
+        elif rand_draw >= 0.65 and rand_draw <0.75:
+            Coupon = Coupons[1]
+            months = int( 1 )
+            mntstr = '1'
+            
+        elif rand_draw >= 0.75 and rand_draw <0.85:
+            Coupon = Coupons[3]
+            months = int( 2 ) 
+            mntstr = '2'
+        else:
+            Coupon = Coupons[2]
+            months = int( 2 )
+            mntstr = '2'
+
+    # locale       
+        if rand_draw<=.75:
+            Locale = 'U.S.'
+        elif rand_draw>0.75 and rand_draw<0.9:
+            Locale = 'Canada'
+        else:
+            Locale = 'Mexico'
+
+    # trans
+        trans = np.random.choice(transaction)
+
+    # type, units and date
+
+        if rand_draw >=0.65:
+            user_rows = np.random.choice(x,p=units_with_sub)
+            n_user_rows = user_rows #+ user_rows%months #if months != 1 else 0 # number of times a user shows up        
+            Date = start + timedelta(days = randrange(deltadays))
+            j = 0        
+            if rand_draw >0.95: # multiple records for units different number of units (defined by skewed normal dist) 
+                Type = 'Units'
+                units = np.random.choice(x,p=units_no_sub)
+                finalData.append([i, userid,trans,Type,Locale,Date,int(units),0,None])
+                i += 1
+                j += 1
+                if trytq :pbar.update(1)  
+                
+            # multiple subscription records 
+            Type   = 'Sub'
+            units = np.random.choice(x,p=units_with_sub)
+
+            while j <(n_user_rows) and Date<end:
+                finalData.append([i + j , userid,trans,Type,Locale,Date,int(units),Coupon,mntstr])
+                Date  = Date + relativedelta(months=months)
+                j +=1
+            i += n_user_rows
+            if trytq : pbar.update(n_user_rows)
+              
+        elif rand_draw <0.1: # Change of locale
+            units = np.random.choice(x,p=units_no_sub)
+            Type  = 'Units'
+            Date  = start + timedelta(days = randrange(deltadays))
+            finalData.append([i, userid,trans,Type,Locale,Date,int(units),Coupon,mntstr])
+            Locale = np.random.choice(['Canada','Mexico'])
+            i +=1
+            if trytq : pbar.update(1)
+            
+        else: # users buying stuff 
+            n_user_rows = np.random.choice(x,p=exp_dist(x,1))
+            units = np.random.choice(x,p=units_no_sub)
+            Type  = 'Units'
+            Date = start + timedelta(days = randrange(deltadays))
+            j = 0
+            while j <(n_user_rows) and Date<end:
+                units = np.random.choice(x,p=units_with_sub)
+
+                switchlocale = random()
+                if switchlocale < .25:            
+                    Locale = np.random.choice( list( set(LocaleList) - set([Locale])))
+
+                finalData.append([i + j, userid,trans,Type,Locale,Date,int(units),Coupon,mntstr])
+                # delta_new = end - Date
+                Date  = start + timedelta(days = randrange(deltadays))
+                j +=1
+            i += n_user_rows
+            if trytq : pbar.update(n_user_rows)
+            
+        # userids
+        userid +=1
+
+    unit_price = {'Single bar': 11.99,'Double bar': 19.99}
+
+    data = pd.DataFrame(finalData, columns=['orderid', 'Userid','Trans','Type','Locale','Date','Units','Coupons','Months'])
+    data['amt'] = round( data['Trans'].apply(lambda x: unit_price[x]) *data['Units']*(1 - data['Coupons']/100), 2)
+    data.loc[data['Coupons'] == 0,'Coupons'] = None
+    data.to_csv(output_file_name, sep='\t',index=False, header=False)
 
 def run_sql_commands(cmds, conn):
     Scur = conn.cursor()
@@ -152,6 +298,8 @@ if __name__ == '__main__':
             process_stock_data(2010)
         elif table == 's2011' : 
             process_stock_data(2011)
+        elif table == 'trans' : 
+            generate_soap_data( 'raw_data/soapData.tdf')
 
         load_data_from_control_dict_list( master_control_dict[table], postgres_conn)
 

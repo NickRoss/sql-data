@@ -11,4 +11,6 @@
 , "class4" : {"schema" : "cls", "tablename" : "class4", "file" : "raw_data/in_class/class4.tdf"}
 , "house_wide" : {"schema" : "cls", "tablename" : "house_wide", "file" : "raw_data/in_class/house_wide.tdf"}
 , "house_long" : {"schema" : "cls", "tablename" : "house_long", "file" : "raw_data/in_class/house_long.tdf"}
+, "trans" : {"schema" : "cls", "tablename" : "trans", "file" :  "raw_data/soapData.tdf"}
+, "balances" : {"schema" : "cls", "tablename" : "balances", "file" :  "raw_data/in_class/balances.tdf"}
 }

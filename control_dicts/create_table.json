@@ -11,4 +11,6 @@
 , "class4" : "create table cls.class4 (sname varchar(8), grade varchar(1));"
 , "house_wide" : "create table cls.house_wide (owner_name varchar(8), NoBedroomHouse1 int, NoBedroomHouse2 int, CostHouse1 int, CostHouse2 int);"
 , "house_long" : "create table cls.house_long (owner_name varchar(8), HouseNo int, BedRoom int, Cost int);"
+, "trans" : "create table cls.trans (orderid int , userid int , trans varchar(15) , type varchar(15) , locale varchar(10) , trans_dt date , units int , coupon float , months int , amt float );"
+, "balances" : "create table cls.balances ( aName varchar(30), aBal int);"
 }

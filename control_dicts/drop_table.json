@@ -11,5 +11,7 @@
     "class3" :  "drop table if exists cls.class3",
     "class4" :  "drop table if exists cls.class4",
     "house_wide" : "drop table if exists cls.house_wide;",
-    "house_long" : "drop table if exists cls.house_long;" 
+    "house_long" : "drop table if exists cls.house_long;" ,
+    "trans" : "drop table if exists cls.trans;",
+    "balances" : "drop table if exists cls.balances;"
 }
