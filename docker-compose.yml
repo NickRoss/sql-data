@@ -1,12 +1,20 @@
 version: '3.8'
 services:
-  db:
+  db_postgres_class:
     image: postgres:14.1-alpine
     restart: always
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=${PGUSER:?err}
+      - POSTGRES_PASSWORD=${PGPASSWORD:?err}
     ports:
       - '5432:5432'
     volumes: 
+      ## Set up local directory for data
       - ./pgdata:/var/lib/postgresql/data
+      ## on initi run the following script
+      - ./init_scripts/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5

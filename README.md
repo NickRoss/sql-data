@@ -6,20 +6,49 @@ This repository contains two other things. First, a docker image which can be us
 
 Complete data dictionaries can be found in the Appendix of the notes provided for the course.
 
-## How to load the data
+## How to use this repository
 
-The command "load_data.py" (python 3) can be used to load the data into any postgres database. It requires the following environment variables to be set:
+This repository users docker in order run a detached version of the postgres datababse. There are a few helper scripts, which are described below.
 
-* PGUSER
-* PGDATABASE
-* PGPASSWORD
-* PGHOST
+Before running anything, you need to set the following environment variables. 
 
-Running load_data.py without any arguments will load all datasets. If a list of datasets are provided afterwards on the command line than only those datasets will be loaded. 
+* PGUSER (postgres)
+* PGDATABASE (sql_class)
+* PGPASSWORD (postgres)
+* PGHOST (localhost)
 
-## Using Docker for a database
+For example, in my `~/.zshrc` file, the following lines can be found:
 
-Assuming that docker and docker compose are installed properly, then typing `docker-compose up` in the directory should start a working postgres server which contains the information required for this class. For this instance the username and password are `postgres` and the database name is `sql_class`. It is *strongly* recommended that, if you choose to use this option that you change the username and password to something a bit more secure.
+```
+export PGHOST=localhost
+export PGDATABASE=sql_class
+export PGUSER=postgres
+export PGPASSWORD=postgres
+```
+
+which sets these varaibles to the default values. I only run this locally so the username and password being set as they are is fine. However if you are planning on using this on public networks, etc. I strong recommend using a different username and password combination. It is *strongly* recommended that, if you choose to use this option that you change the username and password to something a bit more secure.
+
+You also need to install docker and docker-compose (v2). For information on how to do this, please start [here](https://docs.docker.com/compose/install/). Make sure that you enable docker compose V2.
+
+Assuming that everything is installed there is a bash script `init.sh` which _should_ start the database and create all necessary schemas and tables. All data should be loaded too.
+
+The script will run a docker container in the background which has all the data for the course. The connection string and connection information are set by the environment variables. 
+
+## Common problems and solutions
+
+### How do I know if the container is running? 
+
+You can type in `docker ps`  at the terminal and you should see a process with a NAME that looks like `sql-data-db_postgres_class-1`. 
+
+### How do I start the container?
+
+You can always type `docker-compose up -d` in order to start the container.
+
+## How do I stop the container?
+
+You can type `docker-compose down` (making sure to be in the correct directory) and that will stop the container. 
+
+# Data Sources
 
 ## Iowa Cars Data (cls.cars)
 
