@@ -2,7 +2,7 @@
 
 This repository contains the tables used in Nick Ross's [SQL Course](https://www.nickross.site/datamanagement/). Specific information on the data sources can be found in this repository.
 
-This repository contains two other things. First, a docker image which can be used rather than installing postgres itself. There are also a number of associated scripts which process and load the raw data. Information on data changes are documented in this file (and in the code itself).
+This repository contains multiple things. There is a docker image which canbe used to run a postgres server rather than loading the data itself.There are also a number of associated scripts which process and load the raw data. Information on data changes are documented in this file (and in the code itself).
 
 Complete data dictionaries can be found in the Appendix of the notes provided for the course.
 
@@ -28,9 +28,11 @@ export PGPASSWORD=postgres
 
 which sets these varaibles to the default values. I only run this locally so the username and password being set as they are is fine. However if you are planning on using this on public networks, etc. I strong recommend using a different username and password combination. It is *strongly* recommended that, if you choose to use this option that you change the username and password to something a bit more secure.
 
-You also need to install docker and docker-compose (v2). For information on how to do this, please start [here](https://docs.docker.com/compose/install/). Make sure that you enable docker compose V2.
+You also need to install docker and docker-compose (v2). For information on how to do this, please start [here](https://docs.docker.com/compose/install/). Make sure that you **enable docker compose V2.**
 
-Assuming that everything is installed there is a bash script `init.sh` which _should_ start the database and create all necessary schemas and tables. All data should be loaded too.
+If you are unfamiliar with docker, I strongly recommend you take a look at [this docker tutorial](https://docker-curriculum.com/) which I have found to be the most straightforward way to jump into docker/docker-compose.
+
+Assuming that everything is installed there is a bash script `init.sh` which _should_ start when the database initalizes. This script creates all necessary schemas and tables as well as loading all of the required data.
 
 The script will run a docker container in the background which has all the data for the course. The connection string and connection information are set by the environment variables. 
 
@@ -71,6 +73,3 @@ This table provides information about 2010 and 2011 fundamental information. Fun
 ## MTA Data (cls.mta)
 
 The MTA data can be found [here](https://catalog.data.gov/dataset/hourly-traffic-on-metropolitan-transportation-authority-mta-bridges-and-tunnels-beginning-). Per the website, this is _not_ the current version, but an earlier version.
-
-
-
