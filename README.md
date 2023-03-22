@@ -36,7 +36,13 @@ Assuming that everything is installed there is a bash script `init.sh` which _sh
 
 The script will run a docker container in the background which has all the data for the course. The connection string and connection information are set by the environment variables. 
 
+The most common issue that has been found with the scripts herein is that the python environment is not installed correctly. In that case you will run into errors about finding packages, etc. In this case you need to make sure that your pip and python executables align properly.
+
 ## Common problems and solutions
+
+### I get an error about pip3 not found
+
+The `init.sh` script assumes that pip3 is how to install packages. If you use conda or pip as an alias you'll need to remove the `pip3 install` line from `init.sh` and either install the contents of `requirements.txt` by hand or replace that line with the appropriate package management tool.
 
 ### How do I know if the container is running? 
 
@@ -49,6 +55,13 @@ You can always type `docker-compose up -d` in order to start the container.
 ## How do I stop the container?
 
 You can type `docker-compose down` (making sure to be in the correct directory) and that will stop the container. 
+
+## I'm getting an error about root
+
+You may see an error of the form ```sql-data-db_postgres_class-1  | 2023-03-22 19:25:13.953 UTC [2389] FATAL:  role "root" does not exist```
+
+this is a known bug and a to-do to fix. It does not effect the performance or access.
+
 
 # Data Sources
 
